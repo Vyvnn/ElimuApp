@@ -1,40 +1,23 @@
-const express=require('express');
+const express = require('express');
+const router = express.Router();
 
-const router=express.Router();
+const ParentController = require('../controllers/parentController');
+const StudentController = require('../controllers/studentController');
+const TeacherController = require('../controllers/teacherController');
 
-//GET ALL
-router.get('/',(req,res)=>{
+// Routes for the parent
+router.get('/parent', ParentController.getParentPage);
+router.get('/parent', (req,res)=>{
+    res.send("Welcome to your sign up page")})
+router.post('/parent', ParentController.getStudentDetails);
 
-res.json({message:'GET teacher,parent and student'})
+// Routes for the student
+router.get('/student', StudentController.getStudentPage);
+router.post('/student', StudentController.getGradeAndRemark);
 
-})
+// Routes for the teacher
+router.get('/teacher', TeacherController.getTeacherPage);
+router.get('/teacher/students', TeacherController.getAllStudents);
+router.put('/teacher/students/:studentId', TeacherController.updateGradeAndRemark);
 
-//GET SINGLE
-router.get('/:id',(req,res)=>{
-    res.json({message:'GET a single'})
-})
-
-
-
-
-//POST
-router.post('',(req,res)=>{
-   
-    res.json({message:'POST new student grade'})
-})
-
-//DELETE
-router.delete('/:id',(req,res)=>{
-    res.json({message:'DELETE a student grade'})
-})
-
-//UPDATE
-//DELETE
-router.patch('/:id',(req,res)=>{
-    res.json({message:'UPDATE a student grade'})
-})
-
-
-
-
-module.exports=router
+module.exports = router;

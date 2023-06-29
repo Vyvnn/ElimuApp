@@ -1,7 +1,17 @@
-
-
 const express =require ('express');
 const elimuRoutes= require('./routes/elimu')
+const mongoose = require('mongoose');
+const parent =require('./models/parent')
+const student =require('./models/student')
+const teacher =require('./models/teacher')
+
+const connectDB = () => {
+ mongoose.connect('mongodb+srv://vivyan3:burpee6@elimu.lhrbpeb.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+}
+
 
 const app =express();
 
@@ -16,11 +26,12 @@ app.use((req,res,next)=>{
 
 
 //routes
-app.use('/api/elimu',elimuRoutes)
+app.get('/api/elimu',elimuRoutes)
     
 
 
-
-app.listen(5555,()=>{
-    console.log('listen to port 5555')
+//start server
+app.listen(5005
+    ,()=>{
+    console.log('listen to port 8000')
 })
