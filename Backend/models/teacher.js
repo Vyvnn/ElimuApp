@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const teacherSchema = new mongoose.Schema({
-  name: String, required: true,
-  email: String, required: true,
-  password: String, required: true,
-  subjectsTaught: [String], required: true,
-  teachersRemark: [String], required: true
+  name: String, 
+  email: String, 
+  password: String,
+  subjectsTaught: [String],
+  teachersRemark: [String], 
 });
 
 const Teacher = mongoose.model('Teacher', teacherSchema);
