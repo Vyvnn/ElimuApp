@@ -1,5 +1,7 @@
 const Student = require('../models/student');
 
+
+
 exports.getTeacherPage = (req, res) => {
   // Render a form for the teacher to select their name
   res.send('Teacher page');

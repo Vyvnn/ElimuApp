@@ -13,7 +13,8 @@ router.post('/parent', ParentController.getStudentDetails);
 
 // Routes for the student
 router.get('/student', StudentController.getStudentPage);
-router.post('/student', StudentController.getGradeAndRemark);
+router.post('/grade-remark', StudentController.getGradeAndRemark);
+
 
 // Routes for the teacher
 router.get('/teacher', TeacherController.getTeacherPage);

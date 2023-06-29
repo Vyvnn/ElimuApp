@@ -5,7 +5,7 @@ const teacherSchema = new mongoose.Schema({
   email: String, 
   password: String,
   subjectsTaught: [String],
-  teachersRemark: [String], 
+  teachersRemark: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }]
 });
 
 const Teacher = mongoose.model('Teacher', teacherSchema);
