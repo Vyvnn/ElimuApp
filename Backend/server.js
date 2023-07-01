@@ -1,5 +1,5 @@
 const express = require('express');
-const elimuRoutes = require('./routes/elimu');
+const mainpageRoutes = require('./routes/mainpage');
 const mongoose = require('mongoose');
 const parent = require('./models/parent');
 const student = require('./models/student');
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api/elimu', elimuRoutes);
+app.use('/api/mainpage', mainpageRoutes);
 
 // Start server
 app.listen(5005, () => {

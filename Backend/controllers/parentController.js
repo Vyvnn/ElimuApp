@@ -1,26 +1,55 @@
+const Parent = require('../models/parent');
 const Student = require('../models/student');
 
-exports.getParentPage = (req, res) => {
-    // Render a form for the parent to select their name and student
-    res.send('parent');
-};
+const parentController = {
+  parentSignIn: async (req, res) => {
+    const { parentName, phoneNumber, email, studentId } = req.body;
 
-exports.getStudentDetails = async (req, res) => {
+    try {
+      // Find the associated student by ID
+      const student = await Student.findById(studentId);
+
+      if (!student) {
+        return res.status(404).send('Student not found');
+      }
+
+      // Create a new parent document
+      const newParent = new Parent({
+        parentName,
+        phoneNumber,
+        email,
+        student: student._id // Associate the parent with the student using their ID
+      });
+
+      // Save the parent document
+      await newParent.save();
+
+      res.send('Parent registration successful');
+    } catch (error) {
+      console.error('Error registering parent:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+
+  getParentDetails: async (req, res) => {
     const { parentName, studentId } = req.body;
 
     try {
-        // Find the selected student by ID
-        const selectedStudent = await Student.findById(studentId);
+      // Find the parent associated with the specified student ID
+      const parent = await Parent.findOne({ parentName, student: studentId });
 
-        if (!selectedStudent) {
-            return res.status(404).send('Student not found');
-        }
+      if (!parent) {
+        return res.status(404).send('Parent not found');
+      }
 
-        // Display student details: name, grade, subject, and teacher's remark
-        const { name, grade, subject, remark } = selectedStudent;
-        res.send(`Student: ${name}\nGrade: ${grade}\nSubject: ${subject}\nRemark: ${remark}`);
+      // Display parent details: name, phone number, email
+      const { parentName, phoneNumber, email } = parent;
+      res.send(`Parent: ${parentName}\nPhone Number: ${phoneNumber}\nEmail: ${email}`);
     } catch (error) {
-        console.error('Error retrieving student:', error);
-        res.status(500).send('Internal Server Error');
+      console.error('Error retrieving parent details:', error);
+      res.status(500).send('Internal Server Error');
     }
+  }
 };
+
+module.exports = parentController;
